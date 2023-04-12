@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Main {
 
     private record Partner(Integer id, String ico, String menoNazov, String adresa) {
-
         @Override
         public String toString() {
             return "IČO='" + ico + '\'' + "\n" +
@@ -27,7 +26,6 @@ public class Main {
     }
 
     private record KonecnyUzivatelVyhod(int id, String meno, String priezvisko, String adresa) {
-
         @Override
         public String toString() {
             return "Meno ='" + meno + '\'' + "\n" +
@@ -35,7 +33,6 @@ public class Main {
                     "Adresa ='" + adresa + '\'' + "\n";
         }
     }
-
 
     private final static String PARTNERS_API_URL = "https://rpvs.gov.sk/rpvs/Partner/Partner/GetPartners?text=";
     private final static String PARTNER_DETAILS_BY_ID_API_URL = "https://rpvs.gov.sk/OpenData/Partneri({partnerId})?$expand=KonecniUzivateliaVyhod";
@@ -74,7 +71,6 @@ public class Main {
                         System.out.println(kuv);
                     }
                     System.out.println("--------------------------------------------------");
-
                 }
 
             } else {
@@ -93,7 +89,6 @@ public class Main {
         JSONArray jsonArray = new JSONArray();
         try {
             jsonArray = getJsonArrayFromApiCall(new URL(PARTNERS_API_URL + userInput));
-//            System.out.println(jsonArray);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -124,7 +119,6 @@ public class Main {
     }
 
     private static JSONArray getJsonArrayFromApiCall(URL url) {
-//        System.out.println("API call: " + url.toString());
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -159,9 +153,6 @@ public class Main {
 
     private static JSONObject getJsonObjectFromApiCall(URL url) {
         JSONArray jsonArray = getJsonArrayFromApiCall(url);
-//        System.out.println("JSON ARRAY");
-//        System.out.println(jsonArray);
-
         return jsonArray.getJSONObject(0);
     }
 }
