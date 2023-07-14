@@ -45,8 +45,11 @@ public class Main {
     private static final List<Partner> partnerList = new ArrayList<>();
 
     public static void main(String[] args) {
+        String userInput;
         while (true) {
-            String userInput = getUserInput();
+
+            userInput = getUserInput();
+            System.out.println(userInput);
 
             if (userInput.equalsIgnoreCase("q")) {
                 System.out.println("Ukončujem program.");
@@ -76,6 +79,8 @@ public class Main {
             } else {
                 System.out.println("Nenašli sa žiadni partneri.");
             }
+
+            partnerList.clear();
         }
     }
 
@@ -96,7 +101,27 @@ public class Main {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            Partner partner = new Partner(jsonObject.getInt(PARTNER_ID), jsonObject.getString(ICO), jsonObject.getString(MENO_PARTNERA), jsonObject.getString(ADRESA));
+            System.out.println(jsonObject.get(ICO));
+            System.out.println(jsonObject.get(ICO).toString());
+            System.out.println(jsonObject.get(ICO) == null);
+            System.out.println(jsonObject.get(ICO).toString() == null);
+            String ico;
+
+
+//            if (jsonObject.get(ICO)){
+//                ico = "";
+//            } else {
+//                ico = jsonObject.getString(ICO);
+//            }
+
+
+            Partner partner = new Partner(
+                    jsonObject.getInt(PARTNER_ID),
+                     jsonObject.get(ICO) == null ? "" : (String) jsonObject.get(ICO),
+//                    ico,
+                    jsonObject.get(MENO_PARTNERA) == null ? "" : jsonObject.getString(MENO_PARTNERA),
+                    jsonObject.get(ADRESA) == null ? "" : jsonObject.getString(ADRESA)
+            );
             partnerList.add(partner);
         }
     }
